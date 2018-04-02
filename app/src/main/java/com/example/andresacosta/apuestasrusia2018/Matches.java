@@ -32,14 +32,14 @@ import java.util.ArrayList;
 public class Matches extends Fragment {
     private  static final  String TAG = "Partidos";
     int a;
-    ArrayList<String> correo = new ArrayList<String>();
+    ArrayList emailAddress;
     ArrayList keys;
     ArrayList keys2;
-    ArrayList nombre;
+    ArrayList name;
     ArrayList selecciones;
-    ArrayList plata;
-    ArrayList apuesta;
-    ArrayList saldo;
+    ArrayList points;
+    ArrayList bet;
+    ArrayList cost;
 
     ArrayList<String> estadios;
     ArrayList<String> estadiosA;
@@ -79,8 +79,8 @@ public class Matches extends Fragment {
     ArrayList<String> grupoGVisitante;
     ArrayList<String> grupoHCasa;
     ArrayList<String> grupoHVisitante;
-    EditText numerocasa;
-    EditText numerovisita;
+    EditText homeNumber;
+    EditText awayNumber;
     String equipo;
     String equipov;
     String llaveusuario;
@@ -171,21 +171,21 @@ public class Matches extends Fragment {
                 ImageView visitaD = (ImageView)view2.findViewById(R.id.flagsTeamB);
                 visitaD.setImageResource(images[Integer.parseInt(equiposVisita.get(i))]);
                 dialog.show();
-                numerocasa = (EditText) view2.findViewById(R.id.numberBetsA);
-                numerovisita = (EditText) view2.findViewById(R.id.numberBetsB);
+                homeNumber = (EditText) view2.findViewById(R.id.numberBetsA);
+                awayNumber = (EditText) view2.findViewById(R.id.numberBetsB);
                 TextView apostarcasa = (TextView)view2.findViewById(R.id.betHome);
                 TextView apostarvisita = (TextView)view2.findViewById(R.id.betAway);
                 apostarcasa.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        writeNewUser(Integer.parseInt(numerocasa.getText().toString()),equipo);
+                        writeNewUser(Integer.parseInt(homeNumber.getText().toString()),equipo);
                     }
                 });
 
                 apostarvisita.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        writeNewUser(Integer.parseInt(numerovisita.getText().toString()),equipov);
+                        writeNewUser(Integer.parseInt(awayNumber.getText().toString()),equipov);
                     }
                 });
             }
@@ -196,9 +196,12 @@ public class Matches extends Fragment {
     public void usuarioValid(){
         aa = 0;
 
-        if (correo.contains(TabMain.correokey.toString())){
-            for (int i=0; i<correo.size();i++){
-                if (correo.get(i).toString().equals(TabMain.correokey.toString())){aa=i;break;}
+        if (emailAddress
+                .contains(TabMain.correokey.toString())){
+            for (int i=0; i<emailAddress
+                    .size();i++){
+                if (emailAddress
+                        .get(i).toString().equals(TabMain.correokey.toString())){aa=i;break;}
             }
         }
         llaveusuario = keys.get(aa).toString();
@@ -220,19 +223,19 @@ public class Matches extends Fragment {
             }
 
         }
-        Elem reforma = new Elem(Integer.parseInt(apuesta.get(a).toString())+1,equipo,Integer.parseInt(plata.get(a).toString())+valor);
-        Element nuevaapuesta = new Element(nombre.get(aa).toString(),TabMain.correokey,Integer.parseInt(saldo.get(aa).toString())-valor);
+        Elem reforma = new Elem(Integer.parseInt(bet.get(a).toString())+1,equipo,Integer.parseInt(points.get(a).toString())+valor);
+        Element nuevaapuesta = new Element(name.get(aa).toString(),TabMain.correokey,Integer.parseInt(cost.get(aa).toString())-valor);
 
 
 
 
-        if (valor <= Integer.parseInt(saldo.get(aa).toString())) {
+        if (valor <= Integer.parseInt(cost.get(aa).toString())) {
             mDatabase.child("selecciones").child(keys2.get(a).toString()).setValue(reforma);
             mDatabase.child("users").child(llaveusuario.toString()).setValue(nuevaapuesta);
 
-            Toast.makeText(getContext(), "Su saldo restante es: " + Integer.toString(Integer.parseInt(saldo.get(aa).toString()) - valor), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "You have a: " + Integer.toString(Integer.parseInt(cost.get(aa).toString()) - valor), Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(getContext(), "No tiene suficiente saldo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Insuficient points", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -244,8 +247,8 @@ public class Matches extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 selecciones = new ArrayList<String>();
-                apuesta = new ArrayList<Integer>();
-                plata = new ArrayList<Integer>();
+                bet = new ArrayList<Integer>();
+                points = new ArrayList<Integer>();
                 keys2 = new ArrayList<String>();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
@@ -253,8 +256,8 @@ public class Matches extends Fragment {
                     Elem objeto2 = postSnapshot.getValue(Elem.class);
                     keys2.add(postSnapshot.getKey());
                     selecciones.add(objeto2.Equip);
-                    apuesta.add(objeto2.Bet);
-                    plata.add(objeto2.Number);
+                    bet.add(objeto2.Bet);
+                    points.add(objeto2.Number);
                 }
 
             }
@@ -273,18 +276,19 @@ public class Matches extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                correo = new ArrayList<String>();
-                nombre = new ArrayList<String>();
+                emailAddress = new ArrayList<String>();
+                name = new ArrayList<String>();
                 keys = new ArrayList<String>();
-                saldo = new ArrayList<Integer>();
+                cost = new ArrayList<Integer>();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     // TODO: handle the post
                     Element objeto = postSnapshot.getValue(Element.class);
                     keys.add(postSnapshot.getKey());
-                    nombre.add(objeto.Name);
-                    correo.add(objeto.Email);
-                    saldo.add(objeto.Points);
+                    name.add(objeto.Name);
+                    emailAddress
+                            .add(objeto.Email);
+                    cost.add(objeto.Points);
                 }
 
             }

@@ -23,7 +23,7 @@ public class TabMain extends AppCompatActivity{
         setupViewPager(mViewPager);
 
         Intent intent = getIntent();
-        correokey = intent.getStringExtra("haha");
+        correokey = intent.getStringExtra("Well");
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);

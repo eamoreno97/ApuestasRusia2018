@@ -26,7 +26,7 @@ public class TabMain_User extends AppCompatActivity{
         setupViewPager(mViewPager);
 
         Intent intent = getIntent();
-        KeyEmail = intent.getStringExtra("haha");
+        KeyEmail = intent.getStringExtra("Well");
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
