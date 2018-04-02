@@ -208,11 +208,8 @@ public class Matches extends Fragment {
     }
 
     private void writeNewUser(int valor, String equipo) {
-
         usuarioValid();
         readDatabase();
-
-
         if (selecciones.contains(equipo)) {
             a = 0;
             for (int i = 0; i < selecciones.size(); i++) {
@@ -221,23 +218,18 @@ public class Matches extends Fragment {
                     break;
                 }
             }
-
         }
-        Elem reforma = new Elem(Integer.parseInt(bet.get(a).toString())+1,equipo,Integer.parseInt(points.get(a).toString())+valor);
-        Element nuevaapuesta = new Element(name.get(aa).toString(),TabMain.correokey,Integer.parseInt(cost.get(aa).toString())-valor);
-
-
-
+        Elem reforma = new Elem(Integer.parseInt(bet.get(a).toString())+1, equipo,100+valor);
+        Element nuevaapuesta = new Element(name.get(aa).toString(), TabMain.correokey,Integer.parseInt(cost.get(aa).toString())-valor);
 
         if (valor <= Integer.parseInt(cost.get(aa).toString())) {
             mDatabase.child("selecciones").child(keys2.get(a).toString()).setValue(reforma);
             mDatabase.child("users").child(llaveusuario.toString()).setValue(nuevaapuesta);
 
-            Toast.makeText(getContext(), "You have a: " + Integer.toString(Integer.parseInt(cost.get(aa).toString()) - valor), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "You have a: " + Integer.toString(Integer.parseInt(cost.get(aa).toString()) - valor) + " points.", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(getContext(), "Insuficient points", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void readDatabaseEquipos(){
@@ -248,6 +240,7 @@ public class Matches extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 selecciones = new ArrayList<String>();
                 bet = new ArrayList<Integer>();
+
                 points = new ArrayList<Integer>();
                 keys2 = new ArrayList<String>();
 
@@ -257,17 +250,15 @@ public class Matches extends Fragment {
                     keys2.add(postSnapshot.getKey());
                     selecciones.add(objeto2.Equip);
                     bet.add(objeto2.Bet);
+                    System.out.println(bet.size());
                     points.add(objeto2.Number);
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
 
     public void readDatabase(){
@@ -290,17 +281,13 @@ public class Matches extends Fragment {
                             .add(objeto.Email);
                     cost.add(objeto.Points);
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
-
 
     public ArrayList<String> get_json(String string, String player){
         ArrayList<String> vector = new ArrayList<>();
@@ -319,7 +306,6 @@ public class Matches extends Fragment {
                 JSONObject obj = jsonArray.getJSONObject(i);
                 vector.add(obj.getString(player));
             }
-
         } catch (IOException e){
             e.printStackTrace();
         } catch (JSONException e){
@@ -329,7 +315,6 @@ public class Matches extends Fragment {
     }
 
     class CustomAdapter extends BaseAdapter{
-
         @Override
         public int getCount() {
             return equiposCasa.size();

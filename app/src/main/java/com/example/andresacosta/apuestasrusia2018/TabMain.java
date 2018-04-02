@@ -32,7 +32,7 @@ public class TabMain extends AppCompatActivity{
     private void setupViewPager (ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new Matches(),"Partidos");
-        adapter.addFragment(new Bets(), "Apuestas");
+        adapter.addFragment(new Bets(), "Bets");
         viewPager.setAdapter(adapter);
     }
 }
