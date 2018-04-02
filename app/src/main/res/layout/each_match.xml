@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/flagTeamA"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/circle" />
+
+    <TextView
+        android:id="@+id/betsNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/stadium"
+        android:layout_alignBottom="@+id/stadium"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/flagTeamA"
+        android:layout_toRightOf="@+id/flagTeamA"
+        android:width="80dp"
+        android:text="Number of bets"
+        android:textColor="@color/colorBarGray"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/flagTeamB"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/circle" />
+
+    <TextView
+        android:id="@+id/stadium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/flagTeamB"
+        android:layout_toStartOf="@+id/flagTeamB"
+        android:width="80dp"
+        android:text="---------"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/matchDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/group"
+        android:layout_centerHorizontal="true"
+        android:text="DD/MM/YY-HH:MM:SS"
+        android:textColor="@color/colorUnderline" />
+
+    <TextView
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flagTeamB"
+        android:layout_centerHorizontal="true"
+        android:text="-------"
+        android:textColor="@color/colorBarGray"
+        android:textSize="12dp" />
+</RelativeLayout>

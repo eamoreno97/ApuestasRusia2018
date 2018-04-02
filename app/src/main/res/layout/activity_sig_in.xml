@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logotipo_rusia_2018_192"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="40dp"
+        android:padding="5dp"
+        android:text="Name"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Example: Edwin Acosta Moreno"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="@color/colorBarDark"
+        android:textColorHint="@color/colorBarDark"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:padding="5dp"
+        android:text="Email"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Example: edwin@example.com"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:textColor="@color/colorBarDark"
+        android:textColorHint="@color/colorBarDark"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:padding="5dp"
+        android:text="Password"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Example: abc123"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/colorBarDark"
+        android:textColorHint="@color/colorBarDark"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:padding="5dp"
+        android:text="Confirm Password"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Example: abc123"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/colorBarDark"
+        android:textColorHint="@color/colorBarDark"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round"
+        android:text="registrarse"
+        android:textColor="@color/black" />
+
+</LinearLayout>

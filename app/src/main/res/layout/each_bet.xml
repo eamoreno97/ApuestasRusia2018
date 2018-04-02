@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/flagImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/circle" />
+
+    <TextView
+        android:id="@+id/betsNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/betsNumbers"
+        android:layout_alignBottom="@+id/betsNumbers"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_toEndOf="@+id/flagImage"
+        android:layout_toRightOf="@+id/flagImage"
+        android:text="Number of bets" />
+
+    <TextView
+        android:id="@+id/betsPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/betsNumbers"
+        android:layout_alignStart="@+id/betsNumbers"
+        android:layout_centerVertical="true"
+        android:text="Amount wagered" />
+</RelativeLayout>
