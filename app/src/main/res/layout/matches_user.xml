@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.andresacosta.apuestasrusia2018.TabMain$PlaceholderFragment">
+    tools:context="com.example.andresacosta.apuestasrusia2018.TabMain_User$PlaceholderFragment">
 
 
     <ListView

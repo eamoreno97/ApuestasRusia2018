@@ -23,7 +23,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Bets extends Fragment {
-    private static final String TAG = "Apuestas";
+    private static final String TAG = "Bets";
     ArrayList selections;
     ArrayList points;
     ArrayList bet;

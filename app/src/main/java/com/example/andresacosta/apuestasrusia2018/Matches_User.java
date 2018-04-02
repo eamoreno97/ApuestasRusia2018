@@ -1,6 +1,7 @@
 package com.example.andresacosta.apuestasrusia2018;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,10 +30,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Matches extends Fragment {
-    private  static final  String TAG = "Partidos";
+public class Matches_User extends Fragment{
+    private  static final  String TAG = "Matches";
     int a;
-    ArrayList<String> correo = new ArrayList<String>();
+    ArrayList Email;
     ArrayList keys;
     ArrayList keys2;
     ArrayList nombre;
@@ -64,7 +65,7 @@ public class Matches extends Fragment {
 
     ArrayList<String> equiposCasa;
     ArrayList<String> equiposVisita;
-    ArrayList<String> nombrePaises;
+    ArrayList<String> countries;
     ArrayList<String> grupoBCasa;
     ArrayList<String> grupoBVisitante;
     ArrayList<String> grupoCCasa;
@@ -96,17 +97,13 @@ public class Matches extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstancesState){
         View view = inflater.inflate(R.layout.matches,container,false);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         readDatabase();
         readDatabaseEquipos();
 
-
-        ListView listaPartidos = (ListView) view.findViewById(R.id.matchesList);
-
+        ListView matchesList = view.findViewById(R.id.matchesList);
         estadios = get_json("estadios.json","name");
         estadioTotal = get_json("grupoA.json","stadium");
         estadiosB = get_json("grupoB.json","stadium");
@@ -131,7 +128,7 @@ public class Matches extends Fragment {
         dateTotal.addAll(dateB);dateTotal.addAll(dateC);dateTotal.addAll(dateD);dateTotal.addAll(dateE);
         dateTotal.addAll(dateF);dateTotal.addAll(dateG);dateTotal.addAll(dateH);
 
-        nombrePaises = get_json("teams.json","name");
+        countries = get_json("teams.json","name");
         equiposCasa = get_json("grupoA.json","home_team");
         equiposVisita = get_json("grupoA.json","away_team");
         grupoBCasa = get_json("grupoB.json","home_team");
@@ -155,86 +152,17 @@ public class Matches extends Fragment {
         equiposVisita.addAll(grupoBVisitante); equiposVisita.addAll(grupoCVisitante); equiposVisita.addAll(grupoDVisitante);
         equiposVisita.addAll(grupoEVisitante); equiposVisita.addAll(grupoFVisitante); equiposVisita.addAll(grupoGVisitante); equiposVisita.addAll(grupoHVisitante);
 
-        CustomAdapter adapter = new CustomAdapter();
-        listaPartidos.setAdapter(adapter);
-        listaPartidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
+        Matches_User.CustomAdapter adapter = new Matches_User.CustomAdapter();
+        matchesList.setAdapter(adapter);
+        matchesList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                View view2 = getLayoutInflater().inflate( R.layout.dialog_detail, null);
-                Dialog dialog =new Dialog(getContext());
-                dialog.setContentView(view2);
-
-                ImageView casaD = (ImageView)view2.findViewById(R.id.flagsTeamA);
-                casaD.setImageResource(images[Integer.parseInt(equiposCasa.get(i))]);
-                equipo= nombrePaises.get(Integer.parseInt(equiposCasa.get(i).toString()));
-                equipov= nombrePaises.get(Integer.parseInt(equiposVisita.get(i).toString()));
-                ImageView visitaD = (ImageView)view2.findViewById(R.id.flagsTeamB);
-                visitaD.setImageResource(images[Integer.parseInt(equiposVisita.get(i))]);
-                dialog.show();
-                numerocasa = (EditText) view2.findViewById(R.id.numberBetsA);
-                numerovisita = (EditText) view2.findViewById(R.id.numberBetsB);
-                TextView apostarcasa = (TextView)view2.findViewById(R.id.betHome);
-                TextView apostarvisita = (TextView)view2.findViewById(R.id.betAway);
-                apostarcasa.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        writeNewUser(Integer.parseInt(numerocasa.getText().toString()),equipo);
-                    }
-                });
-
-                apostarvisita.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        writeNewUser(Integer.parseInt(numerovisita.getText().toString()),equipov);
-                    }
-                });
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                String message = "Hello";
+                intent.putExtra("Well",message);
+                startActivity(intent);
             }
         });
         return view;
-    }
-
-    public void usuarioValid(){
-        aa = 0;
-
-        if (correo.contains(TabMain.correokey.toString())){
-            for (int i=0; i<correo.size();i++){
-                if (correo.get(i).toString().equals(TabMain.correokey.toString())){aa=i;break;}
-            }
-        }
-        llaveusuario = keys.get(aa).toString();
-    }
-
-    private void writeNewUser(int valor, String equipo) {
-
-        usuarioValid();
-        readDatabase();
-
-
-        if (selecciones.contains(equipo)) {
-            a = 0;
-            for (int i = 0; i < selecciones.size(); i++) {
-                if (selecciones.get(i).toString().equals(equipo)) {
-                    a = i;
-                    break;
-                }
-            }
-
-        }
-        Elem reforma = new Elem(Integer.parseInt(apuesta.get(a).toString())+1,equipo,Integer.parseInt(plata.get(a).toString())+valor);
-        Element nuevaapuesta = new Element(nombre.get(aa).toString(),TabMain.correokey,Integer.parseInt(saldo.get(aa).toString())-valor);
-
-
-
-
-        if (valor <= Integer.parseInt(saldo.get(aa).toString())) {
-            mDatabase.child("selecciones").child(keys2.get(a).toString()).setValue(reforma);
-            mDatabase.child("users").child(llaveusuario.toString()).setValue(nuevaapuesta);
-
-            Toast.makeText(getContext(), "Su saldo restante es: " + Integer.toString(Integer.parseInt(saldo.get(aa).toString()) - valor), Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getContext(), "No tiene suficiente saldo", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     public void readDatabaseEquipos(){
@@ -273,7 +201,7 @@ public class Matches extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                correo = new ArrayList<String>();
+                Email = new ArrayList<String>();
                 nombre = new ArrayList<String>();
                 keys = new ArrayList<String>();
                 saldo = new ArrayList<Integer>();
@@ -283,7 +211,7 @@ public class Matches extends Fragment {
                     Element objeto = postSnapshot.getValue(Element.class);
                     keys.add(postSnapshot.getKey());
                     nombre.add(objeto.Name);
-                    correo.add(objeto.Email);
+                    Email.add(objeto.Email);
                     saldo.add(objeto.Points);
                 }
 
@@ -324,7 +252,7 @@ public class Matches extends Fragment {
         return vector;
     }
 
-    class CustomAdapter extends BaseAdapter{
+    class CustomAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -344,21 +272,23 @@ public class Matches extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
-            view = getLayoutInflater().inflate(R.layout.each_match,null);
-            ImageView bandera = (ImageView)view.findViewById(R.id.flagTeamA);
-            ImageView bandera2 = (ImageView)view.findViewById(R.id.flagTeamB);
-            TextView partido = (TextView)view.findViewById(R.id.betsNumbers);
-            TextView visita = (TextView)view.findViewById(R.id.stadium);
-            TextView fecha = (TextView)view.findViewById(R.id.matchDate);
-            TextView estadio = (TextView)view.findViewById(R.id.group);
+            view = getLayoutInflater().inflate(R.layout.each_match, null);
+            ImageView bandera = (ImageView) view.findViewById(R.id.flagTeamA);
+            ImageView bandera2 = (ImageView) view.findViewById(R.id.flagTeamB);
+            TextView partido = (TextView) view.findViewById(R.id.betsNumbers);
+            TextView visita = (TextView) view.findViewById(R.id.stadium);
+            TextView fecha = (TextView) view.findViewById(R.id.matchDate);
+            TextView estadio = (TextView) view.findViewById(R.id.group);
 
             fecha.setText(dateTotal.get(i).toString());
-            estadio.setText(estadios.get(Integer.parseInt(estadioTotal.get(i))-1));
+            estadio.setText(estadios.get(Integer.parseInt(estadioTotal.get(i)) - 1));
 
             bandera.setImageResource(images[Integer.parseInt(equiposCasa.get(i))]);
             bandera2.setImageResource(images[Integer.parseInt(equiposVisita.get(i))]);
-            partido.setText(nombrePaises.get(Integer.parseInt(equiposCasa.get(i))));
-            visita.setText(nombrePaises.get(Integer.parseInt(equiposVisita.get(i))));
+            partido.setText(countries.get(Integer.parseInt(equiposCasa.get(i))));
+            visita.setText(countries.get(Integer.parseInt(equiposVisita.get(i))));
+
+
             return view;
         }
     }

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.andresacosta.apuestasrusia2018">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -10,14 +12,26 @@
         android:roundIcon="@drawable/logotipo_rusia_2018_192"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".PrincipalActivity"
+            android:theme="@style/AppCustomTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SigIn"></activity>
+        <activity android:name=".SigIn" />
+        <activity android:name=".LogIn" />
+        <activity
+            android:name=".TabMain"
+            android:label="@string/title_activity_tab_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".TabMain_User"
+            android:label="@string/title_activity_tab_main"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -25,7 +25,7 @@
         android:layout_toRightOf="@+id/flagTeamA"
         android:width="80dp"
         android:text="Number of bets"
-        android:textColor="@color/colorBarGray"
+        android:textColor="@color/colorBarDark"
         android:textSize="18dp" />
 
     <ImageView
@@ -66,6 +66,6 @@
         android:layout_below="@+id/flagTeamB"
         android:layout_centerHorizontal="true"
         android:text="-------"
-        android:textColor="@color/colorBarGray"
+        android:textColor="@color/colorBarDark"
         android:textSize="12dp" />
 </RelativeLayout>

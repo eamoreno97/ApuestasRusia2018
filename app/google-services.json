@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "202480275223",
+    "firebase_url": "https://apuestasrusia2018.firebaseio.com",
+    "project_id": "apuestasrusia2018",
+    "storage_bucket": "apuestasrusia2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202480275223:android:c773e3084abbeb4e",
+        "android_client_info": {
+          "package_name": "com.example.andresacosta.apuestasrusia2018"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202480275223-llkmqd8aavnb1vfp4kjtrj52024fiktk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andresacosta.apuestasrusia2018",
+            "certificate_hash": "a759a6dc872b8affdf84bb33aed1787898290e00"
+          }
+        },
+        {
+          "client_id": "202480275223-p1p5ip1o4vmkilbgfj6s11lf676vkid8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxuMnqK0I3pEOTri8JB91p4M3bY_fxI0s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202480275223-p1p5ip1o4vmkilbgfj6s11lf676vkid8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

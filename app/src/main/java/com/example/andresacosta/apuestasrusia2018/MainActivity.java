@@ -21,19 +21,19 @@ public class MainActivity extends AppCompatActivity {
     Button Log_In;
     EditText Email;
     EditText Password;
-    private FirebaseAuth firebaseAuth;
-    private static final String TAG = "ElTagaso";
+    private FirebaseAuth mAuth;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Sign_In = findViewById(R.id.btnLogin);
-        Log_In = findViewById(R.id.btnRegister);
+        Sign_In = findViewById(R.id.btnRegister);
+        Log_In = findViewById(R.id.btnLogin);
         Email = findViewById(R.id.txtEmail);
         Password = findViewById(R.id.txtPassword);
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         Sign_In.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         Log_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loguearse(){
-        firebaseAuth.signInWithEmailAndPassword(Email.getText().toString(),Password.getText().toString())
+        mAuth.signInWithEmailAndPassword(Email.getText().toString(),Password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.d(TAG,"signInWithEmail:succes");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         }else{
                             Log.d(TAG,"signInWithEmail:failure",task.getException());
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if(user!=null){
             Toast.makeText(MainActivity.this, "Successful LogIn",
                     Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, MainTab.class);
+            Intent intent = new Intent(this, TabMain.class);
             String message = Email.getText().toString();
             intent.putExtra("Well", message);
             startActivity(intent);

@@ -24,26 +24,27 @@ public class SigIn extends AppCompatActivity {
     EditText confirmPassword;
     Button Sign_In;
 
-    private FirebaseAuth firebaseAuth;
-    private static final String TAG = "ElTagaso";
-    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private static final String TAG = "MainActivity";
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         setContentView(R.layout.activity_sig_in);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        Name = findViewById(R.id.editName);
         Email = findViewById(R.id.editEmail);
         Password = findViewById(R.id.editPassword);
         confirmPassword = findViewById(R.id.editConfirm);
-        Name = findViewById(R.id.editName);
+
         Sign_In = findViewById(R.id.btnRegister);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         Sign_In.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 validar();
             }
         });
@@ -51,17 +52,17 @@ public class SigIn extends AppCompatActivity {
 
     private void writeNewUser(String name, String email){
         Element user = new Element(name, email, 100);
-        databaseReference.child("users").push().setValue(user);
+        mDatabase.child("users").push().setValue(user);
     }
 
     private void validar(){
-        firebaseAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
+        mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.d(TAG,"createUserWithEmail:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             writeNewUser(Name.getText().toString(),Email.getText().toString());
                         }else{
